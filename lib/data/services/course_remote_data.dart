@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:immersive_boothcamp/data/model/exercise_response_model.dart';
+import 'package:immersive_boothcamp/data/model/question_response_model.dart';
 import '../../constants/constants.dart';
 import '../model/course_response_model.dart';
 
@@ -52,7 +53,7 @@ class CourseRemoteData {
     }
   }
 
-  Future GetQuestionList(String exerciseId) async {
+  Future<QuestionResponse> getQuestionList(String exerciseId) async {
     try {
       final url =
           '${LearningConstants.baseUrl}${LearningConstants.questionList}';
@@ -71,9 +72,9 @@ class CourseRemoteData {
 
       log('Resultnya $exerciseId : ${json.encode(result.data)}');
 
-      final exerciseResponse = ExerciseResponse.fromJson(result.data);
+      final questionResponse = QuestionResponse.fromJson(result.data);
 
-      return exerciseResponse;
+      return questionResponse;
     } catch (e, stacktrace) {
       log(e.toString(), stackTrace: stacktrace, error: e);
       rethrow;

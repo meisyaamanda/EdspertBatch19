@@ -1,115 +1,101 @@
 class QuestionResponse {
-    int? status;
-    String? message;
-    List<QuestionData>? data;
+  int? status;
+  String? message;
+  List<Data>? data;
 
-    QuestionResponse({
-        this.status,
-        this.message,
-        this.data,
-    });
+  QuestionResponse({this.status, this.message, this.data});
 
-    factory QuestionResponse.fromJson(Map<String, dynamic> json) => QuestionResponse(
-        status: json["status"],
-        message: json["message"],
-        data: json["data"] == null ? [] : List<QuestionData>.from(json["data"]!.map((x) => QuestionData.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    };
-}
-
-class QuestionData {
-    String? exerciseIdFk;
-    String? bankQuestionId;
-    String? questionTitle;
-    dynamic questionTitleImg;
-    String? optionA;
-    dynamic optionAImg;
-    String? optionB;
-    dynamic optionBImg;
-    String? optionC;
-    dynamic optionCImg;
-    String? optionD;
-    dynamic optionDImg;
-    String? optionE;
-    dynamic optionEImg;
-    StudentAnswer? studentAnswer;
-
-    QuestionData({
-        this.exerciseIdFk,
-        this.bankQuestionId,
-        this.questionTitle,
-        this.questionTitleImg,
-        this.optionA,
-        this.optionAImg,
-        this.optionB,
-        this.optionBImg,
-        this.optionC,
-        this.optionCImg,
-        this.optionD,
-        this.optionDImg,
-        this.optionE,
-        this.optionEImg,
-        this.studentAnswer,
-    });
-
-    factory QuestionData.fromJson(Map<String, dynamic> json) => QuestionData(
-        exerciseIdFk: json["exercise_id_fk"],
-        bankQuestionId: json["bank_question_id"],
-        questionTitle: json["question_title"],
-        questionTitleImg: json["question_title_img"],
-        optionA: json["option_a"],
-        optionAImg: json["option_a_img"],
-        optionB: json["option_b"],
-        optionBImg: json["option_b_img"],
-        optionC: json["option_c"],
-        optionCImg: json["option_c_img"],
-        optionD: json["option_d"],
-        optionDImg: json["option_d_img"],
-        optionE: json["option_e"],
-        optionEImg: json["option_e_img"],
-        studentAnswer: studentAnswerValues.map[json["student_answer"]]!,
-    );
-
-    Map<String, dynamic> toJson() => {
-        "exercise_id_fk": exerciseIdFk,
-        "bank_question_id": bankQuestionId,
-        "question_title": questionTitle,
-        "question_title_img": questionTitleImg,
-        "option_a": optionA,
-        "option_a_img": optionAImg,
-        "option_b": optionB,
-        "option_b_img": optionBImg,
-        "option_c": optionC,
-        "option_c_img": optionCImg,
-        "option_d": optionD,
-        "option_d_img": optionDImg,
-        "option_e": optionE,
-        "option_e_img": optionEImg,
-        "student_answer": studentAnswerValues.reverse[studentAnswer],
-    };
-}
-
-enum StudentAnswer {
-    D
-}
-
-final studentAnswerValues = EnumValues({
-    "D": StudentAnswer.D
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
+  QuestionResponse.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Data {
+  String? exerciseIdFk;
+  String? bankQuestionId;
+  String? questionTitle;
+  String? questionTitleImg;
+  String? optionA;
+  String? optionAImg;
+  String? optionB;
+  String? optionBImg;
+  String? optionC;
+  String? optionCImg;
+  String? optionD;
+  String? optionDImg;
+  String? optionE;
+  String? optionEImg;
+  String? studentAnswer;
+
+  Data(
+      {this.exerciseIdFk,
+      this.bankQuestionId,
+      this.questionTitle,
+      this.questionTitleImg,
+      this.optionA,
+      this.optionAImg,
+      this.optionB,
+      this.optionBImg,
+      this.optionC,
+      this.optionCImg,
+      this.optionD,
+      this.optionDImg,
+      this.optionE,
+      this.optionEImg,
+      this.studentAnswer});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    exerciseIdFk = json['exercise_id_fk'];
+    bankQuestionId = json['bank_question_id'];
+    questionTitle = json['question_title'];
+    questionTitleImg = json['question_title_img'];
+    optionA = json['option_a'];
+    optionAImg = json['option_a_img'];
+    optionB = json['option_b'];
+    optionBImg = json['option_b_img'];
+    optionC = json['option_c'];
+    optionCImg = json['option_c_img'];
+    optionD = json['option_d'];
+    optionDImg = json['option_d_img'];
+    optionE = json['option_e'];
+    optionEImg = json['option_e_img'];
+    studentAnswer = json['student_answer'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['exercise_id_fk'] = this.exerciseIdFk;
+    data['bank_question_id'] = this.bankQuestionId;
+    data['question_title'] = this.questionTitle;
+    data['question_title_img'] = this.questionTitleImg;
+    data['option_a'] = this.optionA;
+    data['option_a_img'] = this.optionAImg;
+    data['option_b'] = this.optionB;
+    data['option_b_img'] = this.optionBImg;
+    data['option_c'] = this.optionC;
+    data['option_c_img'] = this.optionCImg;
+    data['option_d'] = this.optionD;
+    data['option_d_img'] = this.optionDImg;
+    data['option_e'] = this.optionE;
+    data['option_e_img'] = this.optionEImg;
+    data['student_answer'] = this.studentAnswer;
+    return data;
+  }
 }

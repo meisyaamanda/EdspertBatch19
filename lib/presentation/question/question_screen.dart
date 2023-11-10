@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:immersive_boothcamp/bloc/question_bloc/question_bloc.dart';
+import 'package:immersive_boothcamp/data/services/course_remote_data.dart';
 import '../../core/utils/theme.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -12,8 +14,12 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return BlocProvider(
+      create: (context) => QuestionBloc(
+        courseRemoteData: CourseRemoteData(),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
           backgroundColor: primary,
           leading: IconButton(
             onPressed: () {
@@ -25,7 +31,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             ),
           ),
           title: Text(
-           'Latihan Soal',
+            'Latihan Soal',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -34,7 +40,22 @@ class _QuestionScreenState extends State<QuestionScreen> {
           ),
           centerTitle: true,
         ),
-      body: Center(child: Text('Question'),),
+        body: SafeArea(
+          child: BlocBuilder<QuestionBloc, QuestionState>(
+            builder: (context, state) {
+              if (state is QuestionSuccess) {
+                final question = state.questionResponse.data;
+                // Text();
+               
+              } 
+               print('apa aja');
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }

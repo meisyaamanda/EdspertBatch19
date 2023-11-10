@@ -15,10 +15,11 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
     on<ExerciseEvent>((event, emit) async {
       if (event is GetExerciseListEvent) {
         emit(ExerciseLoading());
+        print('aa');
 
         final result = await courseRemoteData.getExercise(event.courseId);
         for (var i = 0; i < (result.data?.length ?? 0); i++) {
-          await courseRemoteData.GetQuestionList(
+          await courseRemoteData.getQuestionList(
               result.data?[i].exerciseId ?? '');
         }
 
